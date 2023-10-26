@@ -63,6 +63,9 @@ app.get('/', (req, res) => {
       <p>Uwierzytelniono. Możesz pobierać produkty i wyświetlać kategorie.</p>
       <a href="/produkty">Pobierz produkty</a>
       <a href="/kategorie">Wyświetl kategorie</a>
+       <form action="/wyloguj" method="post">
+        <button type="submit">Wyloguj</button>
+      </form>
     `;
 	} else {
 		content += `
@@ -122,6 +125,11 @@ app.get('/kategorie', async (req, res) => {
 		console.error('Błąd podczas wyświetlania kategorii:', error);
 		res.status(500).send('Wystąpił błąd podczas wyświetlania kategorii.');
 	}
+});
+app.post('/wyloguj', (req, res) => {
+	// Wyczyszczenie tokenu dostępowego
+	accessToken = null;
+	res.redirect('/');
 });
 
 app.listen(port, () => {
